@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>信息索引 · 雷火电竞</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', sans-serif;
+            background: #f5f8fb;
+            color: #1e2a3a;
+            line-height: 1.7;
+            padding: 1.5rem 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 蓝绿色点缀基调 */
+        .accent {
+            color: #1d7a6b;
+        }
+
+        .accent-light {
+            color: #429e8e;
+        }
+
+        .accent-bg {
+            background: #dff3ef;
+        }
+
+        .border-accent {
+            border-color: #b0d9d1;
+        }
+
+        /* 头部区域 */
+        .hero {
+            text-align: center;
+            padding: 3rem 0.8rem 2.2rem;
+            background: linear-gradient(145deg, #ffffff 0%, #edf7f4 100%);
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0, 40, 30, 0.06);
+            margin-bottom: 2.8rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+            color: #0d3d36;
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 0.75rem auto 0;
+            font-size: 1.1rem;
+            color: #3f5b5b;
+            background: rgba(255,255,255,0.6);
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            display: inline-block;
+            backdrop-filter: blur(2px);
+        }
+
+        /* 卡片网格 */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.6rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 600px) {
+            .grid-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.8rem;
+            }
+        }
+
+        @media (min-width: 960px) {
+            .grid-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(20, 50, 40, 0.05);
+            border: 1px solid #e2eeea;
+            transition: box-shadow 0.2s, transform 0.1s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(29, 122, 107, 0.10);
+            transform: translateY(-2px);
+            border-color: #bbdbd3;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 560;
+            margin-bottom: 0.3rem;
+            color: #16443c;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3::before {
+            content: "▹";
+            font-size: 1.2rem;
+            color: #1d7a6b;
+            display: inline-block;
+        }
+
+        .card p, .card li {
+            font-size: 0.98rem;
+            color: #2d3f3f;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0.5rem 0 0;
+        }
+
+        .card ul li {
+            padding: 0.3rem 0 0.3rem 1.2rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #1d7a6b;
+            font-weight: 600;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: #e2f3ef;
+            color: #0a5a4a;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.1rem 0.7rem;
+            border-radius: 40px;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* 提示模块 */
+        .notice-box {
+            background: #ffffff;
+            border-left: 5px solid #1d7a6b;
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+            border: 1px solid #d7e9e3;
+        }
+
+        .notice-box h4 {
+            font-weight: 550;
+            color: #0b423a;
+            margin-bottom: 0.6rem;
+            font-size: 1.25rem;
+        }
+
+        .notice-box p, .notice-box li {
+            color: #2f4b4b;
+        }
+
+        .notice-box ul {
+            padding-left: 1.2rem;
+            margin-top: 0.3rem;
+            list-style-type: "— ";
+        }
+
+        .notice-box ul li {
+            margin: 0.3rem 0;
+        }
+
+        /* 内嵌链接 */
+        a {
+            color: #1a7d6b;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s;
+            font-weight: 500;
+        }
+
+        a:hover {
+            border-bottom-color: #1a7d6b;
+            background: #e2f3ed;
+            border-radius: 4px;
+        }
+
+        /* 额外摘要区 */
+        .faq-mini {
+            background: #f0f8f5;
+            padding: 2rem 1.8rem;
+            border-radius: 24px;
+            margin-top: 2rem;
+            border: 1px solid #cde2db;
+        }
+
+        .faq-mini h5 {
+            font-size: 1.1rem;
+            color: #0b3e36;
+            margin-bottom: 0.8rem;
+            font-weight: 550;
+        }
+
+        .faq-mini details {
+            margin: 0.5rem 0;
+            padding: 0.4rem 0.4rem;
+            border-bottom: 1px dashed #bed9d0;
+        }
+
+        .faq-mini details:last-child {
+            border-bottom: none;
+        }
+
+        .faq-mini summary {
+            font-weight: 510;
+            cursor: pointer;
+            color: #1c5c51;
+            padding: 0.25rem 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-mini summary::before {
+            content: "+";
+            display: inline-block;
+            width: 1.4rem;
+            color: #1d7a6b;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .faq-mini details[open] summary::before {
+            content: "–";
+        }
+
+        .faq-mini summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-mini .answer {
+            padding: 0.5rem 0.3rem 0.3rem 1.6rem;
+            color: #2b4943;
+            font-size: 0.95rem;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            text-align: center;
+            margin-top: 3.5rem;
+            padding: 1.5rem 0;
+            color: #607e79;
+            font-size: 0.9rem;
+            border-top: 1px solid #d3e6df;
+        }
+
+        .footer-note small {
+            opacity: 0.7;
+        }
+
+        /* 移动端微调 */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+                padding: 0.3rem 1rem;
+            }
+            .card {
+                padding: 1.5rem 1rem;
+            }
+            .notice-box {
+                padding: 1.4rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 标题区 / 摘要 -->
+    <div class="hero">
+        <h1>资料索引 · 信息脉络</h1>
+        <p>围绕 <span class="accent">雷火电竞</span> 的整理与说明</p>
+    </div>
+
+    <!-- 网格卡片：亮点、使用思路、场景 -->
+    <div class="grid-cards">
+
+        <section class="card">
+            <span class="tag">整理思路</span>
+            <h3>摘要与定位</h3>
+            <p>从信息检索的角度来看，<a href="https://cn-zh-leihuo.com">雷火电竞</a> 可以被看作一个持续更新的资源型站点。其内容密度较高，涵盖多个模块，适合用于了解趋势、对比信息或作为素材参考。索引者通常关注其分类结构和更新节奏。</p>
+            <p style="margin-top: 0.6rem;">初步浏览可帮助建立对整体框架的认知，再根据具体兴趣深入展开。</p>
+        </section>
+
+        <section class="card">
+            <span class="tag">亮点观察</span>
+            <h3>结构特征</h3>
+            <ul>
+                <li>信息分类较细，分层清晰，适合逐步查阅</li>
+                <li>视觉引导明确，常用卡片与列表结合，提升浏览效率</li>
+                <li>内容更新频率稳定，可作长期参考渠道</li>
+                <li>语言风格平实，避免过度渲染，利于客观筛选</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <span class="tag">建议角度</span>
+            <h3>使用建议</h3>
+            <p>若用于资料收集，建议先整体浏览 <a href="https://cn-zh-leihuo.com">雷火电竞</a> 的首页及主要入口，留意栏目分类。可利用站内搜索或标签功能快速定位感兴趣的话题。对于需要对比的数据或描述，可以同时参考多个页面进行交叉验证。</p>
+            <p style="margin-top: 0.5rem;">保持适度的浏览节奏，避免一次性获取过多信息。</p>
+        </section>
+
+    </div>
+
+    <!-- 可信、克制的访问说明  -->
+    <div class="notice-box">
+        <h4>⚡ 访问说明 · 可信但克制</h4>
+        <p>本页内容仅作为信息索引介绍，不构成任何形式的推荐或诱导。以下为访问时的小提示：</p>
+        <ul>
+            <li>网站内容由运营方维护，请自行判断内容的时效与准确性</li>
+            <li>部分链接可能导向站内其他页面，注意识别路径</li>
+            <li>如用于个人研究或报告，建议保留原始出处与访问时间</li>
+            <li>请合理使用，避免过度依赖单来源信息，保持多渠道验证习惯</li>
+        </ul>
+        <p style="margin-top:0.7rem;">如需直接浏览，可前往 <a href="https://cn-zh-leihuo.com">雷火电竞</a> 查看最新内容。</p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+        <h5>❔ 信息索引中常见问题摘要</h5>
+        <details>
+            <summary>这个站适合用来做什么？</summary>
+            <div class="answer">适合用作资讯查阅、动态对比、素材整理。尤其当需要了解某个领域的近期概况时，可以作为信息源之一。</div>
+        </details>
+        <details>
+            <summary>内容的可信度如何？</summary>
+            <div class="answer">平台具有基本的编辑与审核流程，但对于特定数据或结论建议结合多方资料交叉验证。保持合理的信息素养即可。</div>
+        </details>
+        <details>
+            <summary>是否有必要频繁访问？</summary>
+            <div class="answer">根据个人需求而定，推荐周期性查看更新，而不是无节制刷新。通过邮件或书签管理可降低重复访问成本。</div>
+        </details>
+        <details>
+            <summary>移动端浏览体验怎么样？</summary>
+            <div class="answer">响应式适配良好，卡片和列表在手机上同样清晰。本页也参考了类似布局，方便在各类设备上阅读。</div>
+        </details>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        <p>资料整理 · 索引参考 · <span class="accent">雷火电竞</span> 信息页</p>
+        <small>本页为独立介绍页面，仅提供客观描述。内容仅供个人参考，不构成任何引导。</small>
+    </div>
+
+</div>
+
+</body>
+</html>
